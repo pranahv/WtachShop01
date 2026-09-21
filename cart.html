@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Zone | My Vault</title>
+
+<!-- FontAwesome for Premium Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --card-bg: rgba(15, 17, 26, 0.85);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --error-color: #f87171;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Playfair Display', 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+        /* Premium luxury watch background image matching your overall platform style */
+        background: linear-gradient(rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 0.9)), 
+                    url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&q=80&w=1600') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        padding: 60px 20px 40px 20px;
+    }
+
+    /* Premium Sticky/Fixed Back Button */
+    .back-btn {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary-gold);
+        text-decoration: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        padding: 10px 18px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 30px;
+        background: rgba(11, 12, 16, 0.8);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .back-btn:hover {
+        background: var(--primary-gold);
+        color: var(--bg-dark);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        transform: translateX(-3px);
+    }
+
+    /* Vault Box / Cart Container */
+    .cart-box {
+        width: 90%;
+        max-width: 1200px;
+        margin: 30px auto;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+    }
+
+    .brand-logo {
+        text-align: center;
+        color: var(--primary-gold);
+        font-size: 32px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--text-light);
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    /* Luxury Interactive Table styling */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+        margin-top: 10px;
+    }
+
+    table th {
+        color: var(--primary-gold);
+        background: rgba(255, 255, 255, 0.02);
+        padding: 18px;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    table td {
+        padding: 15px 18px;
+        color: var(--text-light);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.02);
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: 15px;
+    }
+
+    table tr td:first-child {
+        border-left: 1px solid rgba(255, 255, 255, 0.03);
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    table tr td:last-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.03);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .watch-thumbnail-wrapper {
+        display: inline-block;
+        padding: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 8px;
+    }
+
+    img {
+        display: block;
+        border-radius: 6px;
+        object-fit: cover;
+    }
+
+    .watch-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        color: var(--text-light);
+        letter-spacing: 1px;
+    }
+
+    .price-text {
+        color: var(--text-light);
+        font-weight: 500;
+    }
+
+    .qty-tag {
+        background: rgba(255, 255, 255, 0.07);
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    /* Minimal Elegant Remove Action */
+    .remove-btn {
+        background: transparent;
+        color: var(--error-color);
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 6px;
+        border: 1px solid rgba(248, 113, 113, 0.3);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .remove-btn:hover {
+        background: rgba(248, 113, 113, 0.1);
+        border-color: var(--error-color);
+        transform: translateY(-1px);
+    }
+
+    /* Pricing Footer Panel */
+    .cart-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .total {
+        font-size: 22px;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: var(--text-light);
+        margin-bottom: 20px;
+    }
+
+    .total span {
+        color: var(--primary-gold);
+        font-weight: 600;
+        margin-left: 10px;
+    }
+
+    /* Premium Check Out Action */
+    .checkout-btn {
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+        padding: 15px 35px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4);
+        opacity: 0.95;
+    }
+
+    /* Empty Status State */
+    .empty-cart-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-cart-state i {
+        color: rgba(212, 175, 55, 0.2);
+        font-size: 65px;
+        margin-bottom: 20px;
+    }
+
+    .empty-cart-state h2 {
+        color: var(--text-muted);
+        font-weight: 300;
+        letter-spacing: 2px;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+</style>
+</head>
+<body>
+
+<!-- PREMIUM NAVIGATION ACTION -->
+<a href="/home/" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> 
+</a>
+
+<div class="cart-box">
+    <div class="brand-logo">WATCH ZONE</div>
+    <h1>Your Curated Vault</h1>
+
+    {% if cart_items %}
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Image</th>
+                <th style="text-align: left; padding-left: 25px;">Timepiece</th>
+                <th style="width: 15%;">Price</th>
+                <th style="width: 12%;">Quantity</th>
+                <th style="width: 15%;">Subtotal</th>
+                <th style="width: 15%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    <div class="watch-thumbnail-wrapper">
+                        <img src="{{ item.watch.image.url }}" width="80" height="80" alt="Watch Image">
+                    </div>
+                </td>
+                <td style="text-align: left; padding-left: 25px;">
+                    <div class="watch-title">{{ item.watch.brand }}</div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">{{ item.watch.model_name }}</div>
+                </td>
+                <td>
+                    <span class="price-text">₹{{ item.watch.price }}</span>
+                </td>
+                <td>
+                    <span class="qty-tag">{{ item.quantity }}</span>
+                </td>
+                <td>
+                    <span class="price-text" style="color: var(--primary-gold);">
+                        ₹{% widthratio item.watch.price 1 item.quantity %}
+                    </span>
+                </td>
+                <td>
+                    <a href="{% url 'remove_cart' item.id %}" class="remove-btn">
+                        <i class="fa-regular fa-trash-can"></i> Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- TOTAL OVERVIEW PANEL -->
+    <div class="cart-footer">
+        <div class="total">
+            Grand Total : <span>₹{{ total }}</span>
+        </div>
+        <a href="{% url 'buy_cart' %}" class="checkout-btn">
+            <i class="fa-solid fa-credit-card"></i> Proceed to Checkout
+        </a>
+    </div>
+
+    {% else %}
+    <!-- EMPTY VAULT STATE -->
+    <div class="empty-cart-state">
+        <i class="fa-solid fa-hourglass-empty"></i>
+        <h2>Your Vault is Empty</h2>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

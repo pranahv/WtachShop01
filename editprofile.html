@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Zone | Edit Profile</title>
+
+<!-- FontAwesome for Premium Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --card-bg: rgba(15, 17, 26, 0.85);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --error-color: #f87171;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Playfair Display', 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.85)), 
+                    url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&q=80&w=1600') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        position: relative;
+    }
+
+    /* Premium Back Button */
+    .back-btn {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary-gold);
+        text-decoration: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        padding: 10px 18px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 30px;
+        background: rgba(11, 12, 16, 0.6);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background: var(--primary-gold);
+        color: var(--bg-dark);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        transform: translateX(-3px);
+    }
+
+    /* Container Card matching Reg Page row-col grid layout */
+    .container {
+        width: 650px; 
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+    }
+
+    .brand-logo {
+        text-align: center;
+        color: var(--primary-gold);
+        font-size: 28px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--text-light);
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .profile-preview-wrapper {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .profile-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary-gold);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Structured Layout Grid */
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+
+    .form-col {
+        flex: 1;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .input-group label {
+        display: block;
+        color: var(--primary-gold);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-wrapper i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 14px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        outline: none;
+        color: var(--text-light);
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    input[type="file"] {
+        padding: 8px 12px 8px 40px;
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    input:focus {
+        border-color: var(--primary-gold);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        margin-top: 15px;
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        opacity: 0.95;
+    }
+
+    .error {
+        color: var(--error-color);
+        font-size: 12px;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        min-height: 18px;
+    }
+
+    .server-error {
+        background: rgba(248, 113, 113, 0.15);
+        border: 1px solid var(--error-color);
+        color: var(--error-color);
+        text-align: center;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<a href="{% url 'profile' %}" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> 
+</a>
+
+<div class="container">
+    <div class="brand-logo">WATCH ZONE</div>
+    <h2>Modify Collection Details</h2>
+
+    {% if error %}
+        <div class="server-error"><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" id="editForm">
+        {% csrf_token %}
+
+        {% if user.Image %}
+            <div class="profile-preview-wrapper">
+                <img src="{{ user.Image.url }}" class="profile-preview" alt="Current Profile">
+            </div>
+        {% endif %}
+
+        <!-- Row 1: Name and Email Split Equally -->
+        <div class="form-row">
+            <div class="form-col">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="name" id="name" value="{{ user.Name }}" placeholder="Letters only (min 3)">
+                    </div>
+                    <div class="error" id="nameError"></div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="email" id="email" value="{{ user.Email }}" placeholder="example@domain.com">
+                    </div>
+                    <div class="error" id="emailError"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Phone and Password Split Equally -->
+        <div class="form-row">
+            <div class="form-col">
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="text" name="phone" id="phone" maxlength="10" value="{{ user.Phone }}" placeholder="10-digit number">
+                    </div>
+                    <div class="error" id="phoneError"></div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="pass" id="password" value="{{ user.Pass }}" placeholder="Minimum 6 characters">
+                    </div>
+                    <div class="error" id="passwordError"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Date of Birth and Image Upload Split Equally -->
+        <div class="form-row">
+            <div class="form-col">
+                <div class="input-group">
+                    <label for="dob">Date of Birth</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <input type="date" name="dob" id="dob" value="{{ user.DOB|date:'Y-m-d' }}">
+                    </div>
+                    <div class="error" id="dobError"></div>
+                </div>
+            </div>
+            <div class="form-col">
+                <div class="input-group">
+                    <label for="image">Replace Profile Image</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-image"></i>
+                        <input type="file" name="image" id="image" accept="image/*">
+                    </div>
+                    <div class="error" id="imageError"></div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">Update Account</button>
+    </form>
+</div>
+
+<script>
+// Strictly Restrict Phone Input to Numbers Only
+document.getElementById("phone").addEventListener("input", function(){
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+// Strictly Restrict Name Input to Letters and Spaces Only
+document.getElementById("name").addEventListener("input", function(){
+    this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+});
+
+// Setup maximum choice date limit to Yesterday's date (Past Date verification)
+const today = new Date();
+const yesterday = new Date(today);
+yesterday.setDate(yesterday.getDate() - 1);
+const formattedMaxDate = yesterday.toISOString().split('T')[0];
+document.getElementById("dob").setAttribute("max", formattedMaxDate);
+
+// COMPREHENSIVE FORM VALIDATION
+document.getElementById("editForm").addEventListener("submit", function(e){
+    let valid = true;
+
+    // Reset error boxes
+    document.querySelectorAll(".error").forEach(function(err){
+        err.innerHTML = "";
+    });
+
+    // Extract values
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let dob = document.getElementById("dob").value;
+    let image = document.getElementById("image").value;
+
+    // Check if ALL text fields are filled up
+    if(!name || !email || !phone || !password || !dob) {
+        alert("All details are mandatory. Please fill all fields.");
+    }
+
+    // NAME VALIDATION
+    let namePattern = /^[a-zA-Z\s]+$/;
+    if(name === ""){
+        document.getElementById("nameError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Name is required";
+        valid = false;
+    } else if(!namePattern.test(name)){
+        document.getElementById("nameError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Name can only contain letters";
+        valid = false;
+    } else if(name.length < 3){
+        document.getElementById("nameError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Name must contain at least 3 characters";
+        valid = false;
+    }
+
+    // EMAIL VALIDATION
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/i;
+    if(email === ""){
+        document.getElementById("emailError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Email is required";
+        valid = false;
+    } else if(!emailPattern.test(email)){
+        document.getElementById("emailError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Enter a valid email address";
+        valid = false;
+    }
+
+    // PHONE VALIDATION
+    if(phone === ""){
+        document.getElementById("phoneError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Phone number is required";
+        valid = false;
+    } else if(phone.length !== 10){
+        document.getElementById("phoneError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Phone number must be exactly 10 digits";
+        valid = false;
+    }
+
+    // PASSWORD VALIDATION
+    if(password === ""){
+        document.getElementById("passwordError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Password is required";
+        valid = false;
+    } else if(password.length < 6){
+        document.getElementById("passwordError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Password must be minimum 6 characters";
+        valid = false;
+    }
+
+    // DOB VALIDATION
+    if(dob === ""){
+        document.getElementById("dobError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Date of birth is required";
+        valid = false;
+    } else {
+        let selectedDate = new Date(dob);
+        let todayDate = new Date();
+        todayDate.setHours(0,0,0,0);
+        if(selectedDate >= todayDate) {
+            document.getElementById("dobError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Date of birth must be a past date";
+            valid = false;
+        }
+    }
+
+    // IMAGE VALIDATION (Optional during edit, but checks formatting if uploaded)
+    if(image !== ""){
+        let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if(!allowedExtensions.exec(image)){
+            document.getElementById("imageError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Allowed extensions: JPG, JPEG, PNG";
+            valid = false;
+        }
+    }
+
+    // Cancel Submission if invalid
+    if(!valid){
+        e.preventDefault();
+    }
+});
+</script>
+</body>
+</html>

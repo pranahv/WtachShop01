@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Zone | Order Confirmed</title>
+
+<!-- FontAwesome Icons & Google Fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --card-bg: rgba(15, 17, 26, 0.9);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(rgba(11, 12, 16, 0.94), rgba(11, 12, 16, 0.94)), 
+                    url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&q=80&w=1600') no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        color: var(--text-light);
+    }
+
+    /* PREMIUM CONTAINER FRAME */
+    .box {
+        background: var(--card-bg);
+        padding: 50px 40px;
+        border-radius: 24px;
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 25px 55px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+        animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* GOLDEN CONFIRMATION CIRCLE */
+    .checkmark-wrapper {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 30px;
+    }
+
+    .checkmark {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(212, 175, 55, 0.1);
+        border: 2px solid var(--primary-gold);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        animation: scaleIn 0.5s ease cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .checkmark i {
+        font-size: 36px;
+        color: var(--primary-gold);
+        animation: checkReveal 0.4s ease 0.4s both;
+    }
+
+    /* HEADINGS & TYPOGRAPHY */
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        color: var(--text-light);
+        animation: slideUpFade 0.8s ease 0.2s both;
+    }
+
+    p {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        font-weight: 300;
+        margin-bottom: 30px;
+        animation: slideUpFade 0.8s ease 0.4s both;
+    }
+
+    /* PREMIUM ACTION CTA */
+    a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+        text-decoration: none;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        animation: slideUpFade 0.8s ease 0.6s both;
+    }
+
+    a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        opacity: 0.95;
+    }
+
+    /* ANIMATION ARCHITECTURE */
+    @keyframes pop {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes checkReveal {
+        from {
+            transform: scale(0) rotate(-45deg);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1) rotate(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUpFade {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <!-- REWORKED CHECKMARK CONTAINER -->
+    <div class="checkmark-wrapper">
+        <div class="checkmark">
+            <i class="fa-solid fa-check"></i>
+        </div>
+    </div>
+
+    <h1>Payment Successful</h1>
+
+    <p>Your luxury timepiece order has been secured and processed successfully.</p>
+
+    <!-- ACCORDING DYNAMIC HOME URL PATHING -->
+    <a href="/home/">
+        <i class="fa-solid fa-house-chimney"></i> Return to Showroom
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WatchZone | Secure Checkout</title>
+
+<!-- FontAwesome & Premium Typography -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --bg-card: rgba(15, 17, 26, 0.85);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --error-red: #ff4d4d;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: radial-gradient(circle at top, rgba(212, 175, 55, 0.05), transparent 60%), #0b0c10;
+        color: var(--text-light);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    /* PREMIUM BACK BUTTON */
+    .back-btn {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-light);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .back-btn:hover {
+        background: var(--primary-gold);
+        color: var(--bg-dark);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* CINEMATIC CHECKOUT BOX */
+    .payment-box {
+        width: 460px;
+        background: var(--bg-card);
+        padding: 40px;
+        border-radius: 16px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+    }
+
+    .payment-box h2 {
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: var(--text-light);
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+
+    .payment-box .subtitle {
+        text-align: center;
+        color: var(--primary-gold);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 35px;
+    }
+
+    /* LUXURY METHOD CARDS */
+    .method {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 18px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .method:hover {
+        background: rgba(212, 175, 55, 0.03);
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .method-header {
+        display: flex;
+        align-items: center;
+    }
+
+    /* CUSTOM INPUT RADIO ALIGNMENT */
+    .method input[type="radio"] {
+        accent-color: var(--primary-gold);
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .method label {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-light);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .method label i {
+        color: var(--primary-gold);
+        font-size: 16px;
+    }
+
+    /* PREMIUM FORMS PANELS */
+    .payment-details {
+        display: none;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .input-group {
+        margin-bottom: 18px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 14px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        color: var(--text-light);
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+        border-color: var(--primary-gold);
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Expiry Date input custom setup */
+    .input-group input[type="month"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+    }
+
+    .row {
+        display: flex;
+        gap: 15px;
+    }
+
+    .row .input-group {
+        flex: 1;
+    }
+
+    /* GOLD VAULT PROCEED BUTTON */
+    button[type="submit"] {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 15px;
+    }
+
+    button[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        background: linear-gradient(135deg, #ffffff, #e2e8f0);
+    }
+
+    .error {
+        color: var(--error-red);
+        font-size: 12px;
+        margin-top: 6px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- BACK BUTTON -->
+<a href="javascript:history.back()" class="back-btn">
+    <i class="fa-solid fa-arrow-left-long" style="margin-right: 8px;"></i> 
+</a>
+
+<div class="payment-box">
+
+    <h2>Secure Vault</h2>
+    <div class="subtitle">Select Gateway Profile</div>
+
+    <form action="{% url 'success' %}" method="POST" id="paymentForm">
+
+        {% csrf_token %}
+
+        <!-- DEBIT CARD -->
+        <div class="method" onclick="document.getElementById('debit').click();">
+            <div class="method-header">
+                <input type="radio"
+                       id="debit"
+                       name="payment"
+                       value="Debit Card"
+                       onclick="event.stopPropagation(); showMethod('debitBox')"
+                       required>
+                <label for="debit">
+                    <i class="fa-solid fa-credit-card"></i> Debit Card
+                </label>
+            </div>
+
+            <div id="debitBox" class="payment-details" onclick="event.stopPropagation();">
+                <div class="input-group">
+                    <label>Card Holder Name</label>
+                    <input type="text"
+                           name="debit_name"
+                           placeholder="Enter Card Holder Name">
+                    <div class="error" id="debitNameError"></div>
+                </div>
+
+                <div class="input-group">
+                    <label>Card Number</label>
+                    <input type="text"
+                           name="debit_number"
+                           maxlength="16"
+                           placeholder="1234567812345678">
+                    <div class="error" id="debitNumberError"></div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Expiry Date</label>
+                        <input type="month" name="debit_expiry">
+                        <div class="error" id="debitExpiryError"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>CVV</label>
+                        <input type="password"
+                               name="debit_cvv"
+                               maxlength="3"
+                               placeholder="•••">
+                        <div class="error" id="debitCvvError"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CREDIT CARD -->
+        <div class="method" onclick="document.getElementById('credit').click();">
+            <div class="method-header">
+                <input type="radio"
+                       id="credit"
+                       name="payment"
+                       value="Credit Card"
+                       onclick="event.stopPropagation(); showMethod('creditBox')">
+                <label for="credit">
+                    <i class="fa-solid fa-id-card"></i> Credit Card
+                </label>
+            </div>
+
+            <div id="creditBox" class="payment-details" onclick="event.stopPropagation();">
+                <div class="input-group">
+                    <label>Card Holder Name</label>
+                    <input type="text"
+                           name="credit_name"
+                           placeholder="Enter Card Holder Name">
+                    <div class="error" id="creditNameError"></div>
+                </div>
+
+                <div class="input-group">
+                    <label>Card Number</label>
+                    <input type="text"
+                           name="credit_number"
+                           maxlength="16"
+                           placeholder="1234567812345678">
+                    <div class="error" id="creditNumberError"></div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label>Expiry Date</label>
+                        <input type="month" name="credit_expiry">
+                        <div class="error" id="creditExpiryError"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>CVV</label>
+                        <input type="password"
+                               name="credit_cvv"
+                               maxlength="3"
+                               placeholder="•••">
+                        <div class="error" id="creditCvvError"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPI -->
+        <div class="method" onclick="document.getElementById('upi').click();">
+            <div class="method-header">
+                <input type="radio"
+                       id="upi"
+                       name="payment"
+                       value="UPI"
+                       onclick="event.stopPropagation(); showMethod('upiBox')">
+                <label for="upi">
+                    <i class="fa-solid fa-qrcode"></i> UPI Transaction
+                </label>
+            </div>
+
+            <div id="upiBox" class="payment-details" onclick="event.stopPropagation();">
+                <div class="input-group">
+                    <label>UPI ID Address</label>
+                    <input type="text"
+                           name="upi_id"
+                           placeholder="username@bank">
+                    <div class="error" id="upiError"></div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">
+            Complete Allocation <i class="fa-solid fa-shield-halved" style="margin-left: 6px;"></i>
+        </button>
+
+    </form>
+</div>
+
+<script>
+// SHOW SELECTED PAYMENT METHOD
+function showMethod(id){
+    document.getElementById("debitBox").style.display = "none";
+    document.getElementById("creditBox").style.display = "none";
+    document.getElementById("upiBox").style.display = "none";
+
+    document.getElementById(id).style.display = "block";
+
+    removeRequired();
+
+    if(id === "debitBox"){
+        document.querySelector("[name='debit_name']").required = true;
+        document.querySelector("[name='debit_number']").required = true;
+        document.querySelector("[name='debit_expiry']").required = true;
+        document.querySelector("[name='debit_cvv']").required = true;
+    }
+    else if(id === "creditBox"){
+        document.querySelector("[name='credit_name']").required = true;
+        document.querySelector("[name='credit_number']").required = true;
+        document.querySelector("[name='credit_expiry']").required = true;
+        document.querySelector("[name='credit_cvv']").required = true;
+    }
+    else if(id === "upiBox"){
+        document.querySelector("[name='upi_id']").required = true;
+    }
+}
+
+// REMOVE REQUIRED
+function removeRequired(){
+    let inputs = document.querySelectorAll("input[type='text'], input[type='password'], input[type='month']");
+    inputs.forEach(function(input){
+        input.required = false;
+    });
+}
+
+// ALLOW ONLY NUMBERS
+document.querySelectorAll(
+    "input[name='debit_number'], input[name='credit_number'], input[name='debit_cvv'], input[name='credit_cvv']"
+).forEach(function(input){
+    input.addEventListener("input", function(){
+        this.value = this.value.replace(/[^0-9]/g,'');
+    });
+});
+
+// FORM VALIDATION
+document.getElementById("paymentForm").addEventListener("submit", function(e){
+    let valid = true;
+
+    // CLEAR ERRORS
+    document.querySelectorAll(".error").forEach(function(error){
+        error.innerHTML = "";
+    });
+
+    let paymentMethod = document.querySelector("input[name='payment']:checked");
+
+    if(!paymentMethod){
+        alert("Please select your preferred checkout configuration.");
+        e.preventDefault();
+        return;
+    }
+
+    // DEBIT VALIDATION
+    if(paymentMethod.value === "Debit Card"){
+        let name = document.querySelector("[name='debit_name']").value.trim();
+        let number = document.querySelector("[name='debit_number']").value.trim();
+        let expiry = document.querySelector("[name='debit_expiry']").value;
+        let cvv = document.querySelector("[name='debit_cvv']").value.trim();
+
+        if(name === ""){
+            document.getElementById("debitNameError").innerHTML = "Cardholder credentials required.";
+            valid = false;
+        }
+        if(number.length !== 16){
+            document.getElementById("debitNumberError").innerHTML = "A valid 16-digit sequencing is required.";
+            valid = false;
+        }
+        if(expiry === ""){
+            document.getElementById("debitExpiryError").innerHTML = "Validation timeframe missing.";
+            valid = false;
+        }
+        if(cvv.length !== 3){
+            document.getElementById("debitCvvError").innerHTML = "Requires secure 3-digit security code.";
+            valid = false;
+        }
+    }
+
+    // CREDIT VALIDATION
+    if(paymentMethod.value === "Credit Card"){
+        let name = document.querySelector("[name='credit_name']").value.trim();
+        let number = document.querySelector("[name='credit_number']").value.trim();
+        let expiry = document.querySelector("[name='credit_expiry']").value;
+        let cvv = document.querySelector("[name='credit_cvv']").value.trim();
+
+        if(name === ""){
+            document.getElementById("creditNameError").innerHTML = "Cardholder credentials required.";
+            valid = false;
+        }
+        if(number.length !== 16){
+            document.getElementById("creditNumberError").innerHTML = "A valid 16-digit sequencing is required.";
+            valid = false;
+        }
+        if(expiry === ""){
+            document.getElementById("creditExpiryError").innerHTML = "Validation timeframe missing.";
+            valid = false;
+        }
+        if(cvv.length !== 3){
+            document.getElementById("creditCvvError").innerHTML = "Requires secure 3-digit security code.";
+            valid = false;
+        }
+    }
+
+    // UPI VALIDATION
+    if(paymentMethod.value === "UPI"){
+        let upi = document.querySelector("[name='upi_id']").value.trim();
+
+        if(upi === ""){
+            document.getElementById("upiError").innerHTML = "An authentic VPA identifier address is required.";
+            valid = false;
+        }
+        else if(!upi.includes("@")){
+            document.getElementById("upiError").innerHTML = "VPA identifier syntax missing '@' domain routing marker.";
+            valid = false;
+        }
+    }
+
+    if(valid === false){
+        e.preventDefault();
+    }
+});
+</script>
+
+</body>
+</html>

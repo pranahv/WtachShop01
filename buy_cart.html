@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Zone | Secure Checkout</title>
+
+<!-- FontAwesome Icons & Google Fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --card-bg: rgba(15, 17, 26, 0.88);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --error-red: #ef4444;
+        --input-bg: rgba(255, 255, 255, 0.03);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(rgba(11, 12, 16, 0.94), rgba(11, 12, 16, 0.94)), 
+                    url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&q=80&w=1600') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        color: var(--text-light);
+    }
+
+    /* CONTAINER CARD FRAME */
+    .container {
+        width: 100%;
+        max-width: 750px;
+        background: var(--card-bg);
+        padding: 45px;
+        border-radius: 24px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 25px 55px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+        color: var(--text-light);
+        font-size: 32px;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 11px;
+        color: var(--primary-gold);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 35px;
+    }
+
+    /* CART ITEM SUMMARY PANEL */
+    .summary-title {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .item:hover {
+        border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .item-details {
+        font-weight: 500;
+    }
+
+    .item-qty {
+        color: var(--text-muted);
+        font-size: 13px;
+        margin-left: 6px;
+    }
+
+    .item-price {
+        color: var(--primary-gold);
+        font-weight: 600;
+    }
+
+    h2 {
+        text-align: right;
+        color: var(--primary-gold);
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        margin-top: 20px;
+        margin-bottom: 35px;
+        font-weight: 600;
+    }
+
+    /* RADIAL PAYMENT METHOD CONTROLS */
+    .payment-box {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
+    .payment-box label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 20px 15px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .payment-box label i {
+        font-size: 20px;
+        color: var(--text-muted);
+        transition: color 0.3s;
+    }
+
+    .payment-box input[type="radio"] {
+        display: none; /* Hide native input styling completely */
+    }
+
+    /* Styled Radio States */
+    .payment-box label:has(input[type="radio"]:checked) {
+        background: rgba(212, 175, 55, 0.06);
+        border-color: var(--primary-gold);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+    }
+
+    .payment-box label:has(input[type="radio"]:checked) i {
+        color: var(--primary-gold);
+    }
+
+    /* GATEWAY SUB-FORM INPUT FIELDS */
+    .form-section {
+        display: none;
+        margin-top: 20px;
+        padding: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-section h3 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 20px;
+        color: var(--primary-gold);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        padding-bottom: 8px;
+    }
+
+    .input-wrapper {
+        margin-bottom: 18px;
+        position: relative;
+    }
+
+    .form-section input {
+        width: 100%;
+        padding: 14px 16px;
+        background: var(--input-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: var(--text-light);
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    .form-section input:focus {
+        border-color: var(--primary-gold);
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.15);
+    }
+
+    /* TWO-COLUMN MATRIX GRID FOR CARD EXPIRY/CVV */
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    /* SUBMIT AND ESCAPE ACTIONS BUTTON MATRIX */
+    .action-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    button {
+        width: 100%;
+        padding: 16px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(212, 175, 55, 0.35);
+        opacity: 0.95;
+    }
+
+    .back-btn {
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .back-btn:hover {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--text-light);
+    }
+
+    /* INLINE VALIDATION STYLING */
+    .error {
+        color: var(--error-red);
+        font-size: 12px;
+        margin-top: 5px;
+        padding-left: 2px;
+        display: none;
+    }
+
+    @media (max-width: 600px) {
+        .payment-box {
+            grid-template-columns: 1fr;
+        }
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+        .container {
+            padding: 25px 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>SECURE CHECKOUT</h1>
+    <div class="subtitle">Watch Zone Gateway</div>
+
+    <!-- PURCHASE SUMMARY PANEL -->
+    <div class="summary-title">Order Overview</div>
+    {% for item in cart_items %}
+    <div class="item">
+        <div class="item-details">
+            {{ item.watch.brand }} {{ item.watch.model_name }}
+            <span class="item-qty">× {{ item.quantity }}</span>
+        </div>
+        <div class="item-price">₹{{ item.watch.price }}</div>
+    </div>
+    {% endfor %}
+
+    <h2>Total Amount : ₹{{ total }}</h2>
+
+    <form method="POST" onsubmit="return validateForm()">
+        {% csrf_token %}
+
+        <div class="summary-title">Select Payment Mode</div>
+        <div class="payment-box">
+            <label>
+                <input type="radio" name="payment" value="UPI" onclick="showForm('upi')" required>
+                <i class="fa-solid fa-mobile-screen-button"></i> UPI
+            </label>
+
+            <label>
+                <input type="radio" name="payment" value="Credit Card" onclick="showForm('card')">
+                <i class="fa-solid fa-credit-card"></i> Credit Card
+            </label>
+
+            <label>
+                <input type="radio" name="payment" value="Debit Card" onclick="showForm('card')">
+                <i class="fa-solid fa-credit-card"></i> Debit Card
+            </label>
+        </div>
+
+        <!-- UPI SUBMODULE VIEW PANEL -->
+        <div id="upiForm" class="form-section">
+            <h3>UPI Configuration</h3>
+            <div class="input-wrapper">
+                <input type="text" id="upiId" placeholder="example@vpa / example@ybl">
+                <div class="error" id="upiError"></div>
+            </div>
+        </div>
+
+        <!-- BANK CARD SUBMODULE VIEW PANEL -->
+        <div id="cardForm" class="form-section">
+            <h3>Card Credentials</h3>
+            <div class="input-wrapper">
+                <input type="text" id="cardNumber" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                <div class="error" id="cardError"></div>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="text" id="cardName" placeholder="Cardholder Full Name">
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-wrapper">
+                    <input type="text" id="expiry" maxlength="5" placeholder="MM/YY">
+                    <div class="error" id="expiryError"></div>
+                </div>
+                <div class="input-wrapper">
+                    <input type="password" id="cvv" maxlength="4" placeholder="CVV">
+                    <div class="error" id="cvvError"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTERACTION CONTROL CONSOLE -->
+        <div class="action-group">
+            <button type="submit" class="submit-btn">
+                <i class="fa-solid fa-shield-halved"></i> Authorize Transaction
+            </button>
+
+            <button type="button" class="back-btn" onclick="history.back()">
+                Cancel & Return
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- CLIENT ACCURACY VALIDATION MODULE -->
+<script>
+// Auto format card mask pattern inputs (spaces after every 4 digits)
+document.getElementById('cardNumber').addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+});
+
+// Auto format date slash insertion logic
+document.getElementById('expiry').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/[^\d]/g, '');
+    if (value.length > 2) {
+        e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    } else {
+        e.target.value = value;
+    }
+});
+
+function showForm(type){
+    document.getElementById("upiForm").style.display = "none";
+    document.getElementById("cardForm").style.display = "none";
+
+    if(type === "upi"){
+        document.getElementById("upiForm").style.display = "block";
+    }
+    if(type === "card"){
+        document.getElementById("cardForm").style.display = "block";
+    }
+}
+
+function setError(id, message) {
+    let element = document.getElementById(id);
+    element.innerText = message;
+    element.style.display = message ? "block" : "none";
+}
+
+function validateForm(){
+    let payment = document.querySelector('input[name="payment"]:checked');
+    
+    // Clear legacy errors
+    setError("upiError", "");
+    setError("cardError", "");
+    setError("nameError", "");
+    setError("expiryError", "");
+    setError("cvvError", "");
+
+    if(!payment){
+        alert("Please explicitly choose an active settlement gateway module.");
+        return false;
+    }
+
+    let isValid = true;
+
+    if(payment.value === "UPI"){
+        let upi = document.getElementById("upiId").value.trim();
+        // Regex evaluating standard valid globally accepted payment ecosystem structures
+        let upiRegex = /^[\w.-]+@[\w.-]+$/;
+        
+        if(!upiRegex.test(upi)){
+            setError("upiError", "Enter a valid, authorized virtual payment address (VPA).");
+            isValid = false;
+        }
+    }
+
+    if(payment.value === "Credit Card" || payment.value === "Debit Card"){
+        let card = document.getElementById("cardNumber").value.replace(/\s/g, '');
+        let name = document.getElementById("cardName").value.trim();
+        let expiry = document.getElementById("expiry").value.trim();
+        let cvv = document.getElementById("cvv").value.trim();
+
+        // 13 to 19 numerical string matching verification
+        if(!/^\d{13,19}$/.test(card)){
+            setError("cardError", "Please provide a valid 16-digit billing identifier.");
+            isValid = false;
+        }
+
+        if(name.length < 3 || !/^[a-zA-Z\s]+$/.test(name)){
+            setError("nameError", "Account holder identification mismatch or unreadable.");
+            isValid = false;
+        }
+
+        // Validate MM/YY constraints explicitly
+        let expiryRegex = /^(0[1-2]|1[0-2])\/?([0-9]{2})$/;
+        if(!expiryRegex.test(expiry)){
+            setError("expiryError", "Use format constraints matching MM/YY parameters.");
+            isValid = false;
+        }
+
+        if(!/^\d{3,4}$/.test(cvv)){
+            setError("cvvError", "Security identification string sequence looks faulty.");
+            isValid = false;
+        }
+    }
+
+    return isValid;
+}
+</script>
+
+</body>
+</html>

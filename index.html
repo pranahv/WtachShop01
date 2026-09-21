@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WatchZone - Luxury Watches</title>
+
+<!-- FontAwesome Icons & Luxury Google Fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary-gold: #d4af37;
+    --dark-gold: #aa8416;
+    --bg-dark: #0b0c10;
+    --bg-card: rgba(15, 17, 26, 0.75);
+    --text-light: #f3f4f6;
+    --text-muted: #9ca3af;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0b0c10;
+    color: var(--text-light);
+}
+
+/* HEADER */
+header {
+    background: rgba(11, 12, 16, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 28px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* HERO */
+.hero {
+    min-height: 85vh;
+    background: linear-gradient(rgba(11, 12, 16, 0.75), rgba(11, 12, 16, 0.75)),
+                url("https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1600&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    color: white;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+.hero-text h1 span {
+    color: var(--primary-gold);
+    font-style: italic;
+}
+
+.hero-text p {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+    color: var(--bg-dark);
+    padding: 16px 36px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45);
+    background: linear-gradient(135deg, #ffffff, #e2e8f0);
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 38px;
+    margin: 90px 0 10px;
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--primary-gold);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 50px;
+}
+
+/* PRODUCTS SECTION */
+.products {
+    padding: 0 8% 90px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-gold);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.card-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.card-content p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 15px;
+    height: 60px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price {
+    color: var(--primary-gold);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+.buy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    width: 100%;
+    justify-content: center;
+}
+
+.buy-btn:hover {
+    background: var(--primary-gold);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+/* BRAND HERITAGE STORY SECTION */
+.brand-story {
+    padding: 90px 8%;
+    background: linear-gradient(rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 0.9)), 
+                url("https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=1600&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.story-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.story-image {
+    flex: 1;
+    position: relative;
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.story-image::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--primary-gold);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.story-content {
+    flex: 1.2;
+}
+
+.story-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.story-content .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--primary-gold);
+    margin-bottom: 25px;
+}
+
+.story-content p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+@media(max-width: 992px) {
+    .story-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .story-image::after {
+        display: none;
+    }
+}
+
+/* FEATURES */
+.features {
+    background: #0f111a;
+    padding: 90px 8%;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.feature-box {
+    background: var(--bg-card);
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.4s ease;
+}
+
+.feature-box i {
+    font-size: 32px;
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.feature-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.feature-box p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.feature-box:hover {
+    background: rgba(212, 175, 55, 0.04);
+    border-color: var(--primary-gold);
+    transform: translateY(-5px);
+}
+
+/* FOOTER */
+footer {
+    background: #050608;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="logo">WatchZone</div>
+
+    <nav>
+        <a href="/registration/">Sign Up</a>
+        <a href="/login/">Sign In</a>
+    </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Luxury Watches <br>For <span>Every Style</span></h1>
+        <p>
+            Discover premium watches crafted with elegance,
+            precision, and timeless design. Find the perfect
+            watch for every occasion.
+        </p>
+
+        <a href="/registration/" class="btn">Shop Now <i class="fa-solid fa-arrow-right-long"></i></a>
+    </div>
+</section>
+
+<!-- CURATED EXHIBITIONS SECTION -->
+<section class="showcase">
+    <h2 class="section-title">The Masterpiece Vault</h2>
+    <div class="section-subtitle">Exquisite Precision Instruments</div>
+    
+    <div class="products">
+        <!-- WATCH CARD 1 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=600&auto=format&fit=crop" alt="Chronograph Classic Rose Gold">
+            <div class="card-content">
+                <h3>Grand Chrono Heritage</h3>
+                <p>Features an automatic self-winding calibre housed within an 18k brushed rose gold casing combined with a genuine alligator leather profile.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 12,25,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 2 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=600&auto=format&fit=crop" alt="Minimalist Modern Dial">
+            <div class="card-content">
+                <h3>Onyx Minimalist Slim</h3>
+                <p>An elegant ultra-thin architectural composition featuring a deep midnight dial index accented by clean, diamond-cut hand profiles.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 6,90,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 3 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=600&auto=format&fit=crop" alt="Mechanical Skeleton Engine">
+            <div class="card-content">
+                <h3>Vanguard Skeleton Tourbillon</h3>
+                <p>Fully exhibition sapphire backing detailing intricate micro-mechanical complications calibrated to flawless precision matrices.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 19,30,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 4 -->
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/I/71Kyjiden-L._AC_UY1000_.jpg" alt="Marine Ceramic Sport">
+            <div class="card-content">
+                <h3>FEICE Men's Automatic Skeleton Watch</h3>
+                <p>Engineered with a high-resistance midnight ceramic unidirectional bezel and luminous markers, perfect for deep architectural maritime exploration.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 9,45,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 5 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1619134778706-7015533a6150?q=80&w=600&auto=format&fit=crop" alt="Aeronaut Titanium Grey">
+            <div class="card-content">
+                <h3>Aeronaut Titanium Flieger</h3>
+                <p>Ultra-lightweight grade 5 titanium structural framing built to withstand high atmospheric G-forces, absolute dual-time flight companion tracker.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 13,85,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 6 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?q=80&w=600&auto=format&fit=crop" alt="Stella Diamond Dial">
+            <div class="card-content">
+                <h3>Stella Platinum Perpetual</h3>
+                <p>Adorned with hand-set baguette diamond markers nestled neatly over an architectural platinum dial backdrop tracking lunar phase configurations.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 26,70,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 7 (NEW Extra Card) -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600&auto=format&fit=crop" alt="Obsidian Matte Concept">
+            <div class="card-content">
+                <h3>Imperial Carbon Obsidian</h3>
+                <p>Forged with state-of-the-art forged carbon matrices and deep industrial matte elements built specifically for structural integrity and high impact.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 15,20,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+
+        <!-- WATCH CARD 8 (NEW Extra Card) -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=600&auto=format&fit=crop" alt="Monarch Gold Vintage Edition">
+            <div class="card-content">
+                <h3>Monarch Heritage Calibre</h3>
+                <p>A classic layout inspired by vintage dress aesthetics featuring hand-polished gold hour points alongside an internal perpetual calendar mechanism.</p>
+                <div class="price"><i class="fa-solid fa-indian-rupee-sign"></i> 18,10,000</div>
+                <a href="/registration/" class="buy-btn">View Masterpiece</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BRAND HERITAGE STORY SECTION -->
+<section class="brand-story">
+    <div class="story-container">
+        <div class="story-image">
+            <img src="https://i.pinimg.com/736x/41/7d/5e/417d5ece049ee73740ee97426bac7eb1.jpg" alt="Watchmaking Mastercraft Art">
+        </div>
+        <div class="story-content">
+            <h2>Horological Excellence</h2>
+            <div class="divider"></div>
+            <p>At WatchZone, we treat time as an art form rather than a simple metric. Every curated instrument within our vault represents a monumental collision between century-old Swiss tradition and bold, progressive design concepts.</p>
+            <p>Our dedicated watchmakers obsess over every micro-meter calibration, ensuring that when you clip a masterpiece onto your wrist, you are assuming responsibility for an unbroken ancestral legacy of precision engineering.</p>
+            <a href="/registration/" class="btn" style="padding: 12px 28px; font-size: 11px;">Explore Our History</a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+
+    <h2 class="section-title" style="margin-top: 0;">Why Choose Us?</h2>
+    <div class="section-subtitle">Exquisite Platform Guarantees</div>
+
+    <div class="feature-grid">
+
+        <div class="feature-box">
+            <i class="fa-solid fa-stopwatch"></i>
+            <h4>Premium Collection</h4>
+            <p>Luxury watches from trusted heritage brands.</p>
+        </div>
+
+        <div class="feature-box">
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+            <h4>Best Prices</h4>
+            <p>Exclusive boutique offers and verified sizing valuation plans.</p>
+        </div>
+
+        <div class="feature-box">
+            <i class="fa-solid fa-stopwatch-20"></i>
+            <h4>Official Warranty</h4>
+            <p>Fully stamped, international manufacturer-backed coverage plans.</p>
+        </div>
+
+        <div class="feature-box">
+            <i class="fa-solid fa-clock"></i>
+            <h4>Fast Delivery</h4>
+            <p>Safe, insured priority parcel doorstep delivery channels.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 WatchZone. Haute Horlogerie Hub. All Rights Reserved.
+</footer>
+
+</body>
+</html>

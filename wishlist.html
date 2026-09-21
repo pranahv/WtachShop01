@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Zone | My Wishlist</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --card-bg: rgba(15, 17, 26, 0.85);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --wishlist-rose: #e11d48;
+        --wishlist-rose-hover: #be123c;
+        --success-green: #10b981;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Playfair Display', 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+        /* Premium luxury watch overlay matching your overall platform architecture */
+        background: linear-gradient(rgba(11, 12, 16, 0.9), rgba(11, 12, 16, 0.9)), 
+                    url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&q=80&w=1600') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        padding: 60px 20px 40px 20px;
+        color: var(--text-light);
+    }
+
+    /* Premium Fixed Back Button */
+    .back-btn {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary-gold);
+        text-decoration: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        padding: 10px 18px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 30px;
+        background: rgba(11, 12, 16, 0.8);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .back-btn:hover {
+        background: var(--primary-gold);
+        color: var(--bg-dark);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        transform: translateX(-3px);
+    }
+
+    /* Main Container Dashboard Frame */
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 30px auto;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+    }
+
+    .brand-logo {
+        text-align: center;
+        color: var(--primary-gold);
+        font-size: 32px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: var(--text-light);
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    /* Search Utility Layout styling */
+    .search-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 35px;
+    }
+
+    .search-container {
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .search-container i {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--wishlist-rose);
+        font-size: 16px;
+    }
+
+    .search-bar {
+        width: 100%;
+        padding: 14px 15px 14px 50px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(225, 29, 72, 0.25);
+        border-radius: 30px;
+        color: var(--text-light);
+        outline: none;
+        font-size: 14px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+    .search-bar:focus {
+        border-color: var(--wishlist-rose);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 12px rgba(225, 29, 72, 0.3);
+    }
+
+    /* Luxury Interactive Table layout */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    th {
+        color: var(--primary-gold);
+        background: rgba(255, 255, 255, 0.02);
+        padding: 18px 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    td {
+        padding: 15px 12px;
+        color: var(--text-light);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.02);
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: 14px;
+    }
+
+    table tr td:first-child {
+        border-left: 1px solid rgba(255, 255, 255, 0.03);
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    table tr td:last-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.03);
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .watch-img-container {
+        display: inline-block;
+        padding: 4px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 8px;
+    }
+
+    img {
+        display: block;
+        border-radius: 6px;
+        object-fit: cover;
+    }
+
+    .text-gold {
+        color: var(--primary-gold);
+        font-weight: 500;
+    }
+
+    /* Action Buttons Design */
+    .buy-btn, .remove-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .buy-btn {
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+    }
+
+    .buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        opacity: 0.95;
+    }
+
+    .remove-btn {
+        background: transparent;
+        color: var(--error-color);
+        border: 1px solid rgba(248, 113, 113, 0.3);
+    }
+
+    .remove-btn:hover {
+        background: rgba(248, 113, 113, 0.08);
+        border-color: var(--error-color);
+        transform: translateY(-2px);
+    }
+
+    /* Empty and No Match Layout States */
+    .empty, .no-results {
+        text-align: center;
+        padding: 50px 20px;
+        color: var(--text-muted);
+    }
+
+    .empty i, .no-results i {
+        font-size: 55px;
+        color: rgba(225, 29, 72, 0.2);
+        margin-bottom: 20px;
+    }
+
+    .empty p, .no-results p {
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
+
+    .no-results {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<a href="/home/" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> 
+</a>
+
+<div class="container">
+    <div class="brand-logo">WATCH ZONE</div>
+    <h1>Desire Collection</h1>
+
+    {% if wishlist_items %}
+    <div class="search-wrapper">
+        <div class="search-container">
+            <i class="fa-solid fa-heart-circle-check"></i>
+            <input type="text" id="wishlistSearch" class="search-bar" placeholder="Search saved brands or models...">
+        </div>
+    </div>
+
+    <table id="wishlistTable">
+        <thead>
+            <tr>
+                <th style="width: 12%;">Image</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Dial Color</th>
+                <th>Strap</th>
+                <th>Price</th>
+                <th style="width: 12%;">Purchase</th>
+                <th style="width: 12%;">Discard</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in wishlist_items %}
+            <tr class="wishlist-row" data-search="{{ item.watch.brand|lower }} {{ item.watch.model_name|lower }}">
+                <td>
+                    <div class="watch-img-container">
+                        <img src="{{ item.watch.image.url }}" width="80" height="80" alt="Watch Image">
+                    </div>
+                </td>
+                <td style="font-weight: 600; letter-spacing: 0.5px;">{{ item.watch.brand }}</td>
+                <td style="color: var(--text-muted);">{{ item.watch.model_name }}</td>
+                <td>{{ item.watch.dial_color }}</td>
+                <td>{{ item.watch.strap_material }}</td>
+                <td><span class="text-gold">₹{{ item.watch.price }}</span></td>
+                <td>
+                    <a href="{% url 'product_details' item.watch.id %}" class="buy-btn">
+                        <i class="fa-solid fa-unlock-keyhole"></i> View
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'remove_wishlist' item.id %}" class="remove-btn">
+                        <i class="fa-regular fa-trash-can"></i> Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="noSearchMatches" class="no-results">
+        <i class="fa-solid fa-magnifying-glass-minus"></i>
+        <p>No matching timepieces found in your wishlist</p>
+    </div>
+
+    {% else %}
+    <div class="empty">
+        <i class="fa-solid fa-heart-crack"></i>
+        <p>Your Wishlist is Empty</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.getElementById("wishlistSearch")?.addEventListener("input", function() {
+    let queryValue = this.value.toLowerCase().trim();
+    let tableRows = document.querySelectorAll("#wishlistTable tbody .wishlist-row");
+    let matchCounter = 0;
+
+    tableRows.forEach(function(row) {
+        let metaString = row.getAttribute("data-search");
+        
+        if (metaString.includes(queryValue)) {
+            row.style.display = "table-row";
+            matchCounter++;
+        } else {
+            row.style.display = "none";
+        }
+    });
+
+    // Handle view display configurations for empty queries
+    let tableElement = document.getElementById("wishlistTable");
+    let errorElement = document.getElementById("noSearchMatches");
+
+    if (matchCounter === 0) {
+        tableElement.style.display = "none";
+        errorElement.style.display = "block";
+    } else {
+        tableElement.style.display = "table";
+        errorElement.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

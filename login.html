@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch Zone | Luxury Login</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-gold: #d4af37;
+        --dark-gold: #aa8416;
+        --bg-dark: #0b0c10;
+        --card-bg: rgba(15, 17, 26, 0.85);
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --error-color: #f87171;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Playfair Display', 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+        /* Premium luxury watch background image with dark overlay matching registration */
+        background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.85)), 
+                    url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&q=80&w=1600') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+    }
+
+    /* Premium Back Button */
+    .back-btn {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary-gold);
+        text-decoration: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        padding: 10px 18px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 30px;
+        background: rgba(11, 12, 16, 0.6);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background: var(--primary-gold);
+        color: var(--bg-dark);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        transform: translateX(-3px);
+    }
+
+    /* Container Card */
+    .login-box {
+        width: 420px;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+    }
+
+    .brand-logo {
+        text-align: center;
+        color: var(--primary-gold);
+        font-size: 28px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--text-light);
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .input-group label {
+        display: block;
+        color: var(--primary-gold);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-wrapper i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 14px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        outline: none;
+        color: var(--text-light);
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    input:focus {
+        border-color: var(--primary-gold);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        margin-top: 15px;
+        background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+        color: var(--bg-dark);
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        opacity: 0.95;
+    }
+
+    .signup {
+        margin-top: 25px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+    }
+
+    .signup a {
+        text-decoration: none;
+        color: var(--primary-gold);
+        font-weight: bold;
+        margin-left: 5px;
+        transition: color 0.3s;
+    }
+
+    .signup a:hover {
+        color: var(--text-light);
+    }
+
+    .error {
+        color: var(--error-color);
+        font-size: 12px;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        min-height: 18px;
+    }
+
+    .server-error {
+        background: rgba(248, 113, 113, 0.15);
+        border: 1px solid var(--error-color);
+        color: var(--error-color);
+        text-align: center;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<a href="/" class="back-btn">
+    <i class="fa-solid fa-arrow-left"></i> 
+</a>
+
+<div class="login-box">
+    <div class="brand-logo">WATCH ZONE</div>
+    <h2>Access Account</h2>
+
+    {% if error %}
+        <div class="server-error"><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</div>
+    {% endif %}
+
+    <form method="POST" id="loginForm">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" id="email" placeholder="example@domain.com">
+            </div>
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="pass" id="password" placeholder="Enter security key">
+            </div>
+            <div class="error" id="passwordError"></div>
+        </div>
+
+        <button type="submit">Secure Login</button>
+    </form>
+
+    <div class="signup">
+        Don't have an account? <a href="{% url 'registration' %}">Register here</a>
+    </div>
+</div>
+
+<script>
+// LOGIN FORM VALIDATION
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    let valid = true;
+
+    // CLEAR OLD ERRORS
+    document.querySelectorAll(".error").forEach(function(error){
+        error.innerHTML = "";
+    });
+
+    // GET VALUES
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+
+    // EMAIL VALIDATION
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/i;
+    if(email === ""){
+        document.getElementById("emailError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Email is required";
+        valid = false;
+    } else if(!emailPattern.test(email)){
+        document.getElementById("emailError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Enter a valid email address";
+        valid = false;
+    }
+
+    # PASSWORD VALIDATION
+    if(password === ""){
+        document.getElementById("passwordError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Password is required";
+        valid = false;
+    } else if(password.length < 6){
+        document.getElementById("passwordError").innerHTML = "<i class='fa-solid fa-circle-xmark'></i> Password must be minimum 6 characters";
+        valid = false;
+    }
+
+    // STOP FORM SUBMIT IF INVALID
+    if(!valid){
+        e.preventDefault();
+    }
+});
+</script>
+</body>
+</html>
